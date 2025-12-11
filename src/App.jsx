@@ -8,19 +8,27 @@ import { GameProvider } from './context/GameContext';
 function App() {
   const gameRef = useRef(null);
 
+  const learnMoreRef = useRef(null);
+
   const scrollToGame = () => {
     gameRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const scrollToLearnMore = () => {
+    learnMoreRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 font-sans text-gray-900">
-      <Hero onPlayClick={scrollToGame} />
+      <Hero onPlayClick={scrollToGame} onLearnMoreClick={scrollToLearnMore} />
       <div ref={gameRef}>
         <GameProvider>
           <Game />
         </GameProvider>
       </div>
-      <LearnMore />
+      <div ref={learnMoreRef}>
+        <LearnMore />
+      </div>
       <Footer />
     </div>
   );

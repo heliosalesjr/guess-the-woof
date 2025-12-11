@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Hero = ({ onPlayClick }) => {
+const Hero = ({ onPlayClick, onLearnMoreClick }) => {
     return (
         <section className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-20 px-6 text-center">
             <div className="max-w-4xl mx-auto">
@@ -20,6 +20,10 @@ const Hero = ({ onPlayClick }) => {
                     </button>
                     <a
                         href="#learn-more"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            onLearnMoreClick();
+                        }}
                         className="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-indigo-600 transition duration-300"
                     >
                         Learn more
