@@ -3,6 +3,7 @@ import Hero from './components/Hero';
 import Game from './components/Game';
 import LearnMore from './components/LearnMore';
 import Footer from './components/Footer';
+import { GameProvider } from './context/GameContext';
 
 function App() {
   const gameRef = useRef(null);
@@ -15,7 +16,9 @@ function App() {
     <div className="min-h-screen bg-gray-50 font-sans text-gray-900">
       <Hero onPlayClick={scrollToGame} />
       <div ref={gameRef}>
-        <Game />
+        <GameProvider>
+          <Game />
+        </GameProvider>
       </div>
       <LearnMore />
       <Footer />

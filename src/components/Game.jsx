@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Confetti from 'react-confetti';
 import { FaPaw } from 'react-icons/fa';
-import { fetchBreeds, fetchRandomDogImage } from '../utils/api';
+import { useGame } from '../context/GameContext';
 
 const Game = () => {
-    const [breeds, setBreeds] = useState([]);
-    const [currentDog, setCurrentDog] = useState(null);
-    const [options, setOptions] = useState([]);
-    const [score, setScore] = useState(0);
-    const [gameState, setGameState] = useState('loading'); // loading, playing, won, lost
-    const [selectedOption, setSelectedOption] = useState(null);
+    const {
+        currentDog,
+        options,
+        score,
+        gameState,
+        selectedOption,
+        imageLoaded,
+        countdown,
+        startNewRound,
+        handleOptionClick,
+        handleImageLoad,
+    } = useGame();
+
     const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });
-    const [imageLoaded, setImageLoaded] = useState(false);
-    const [countdown, setCountdown] = useState(null);
 
     useEffect(() => {
         const handleResize = () => {
@@ -21,83 +26,6 @@ const Game = () => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-
-    useEffect(() => {
-        const loadBreeds = async () => {
-            const breedsData = await fetchBreeds();
-            setBreeds(breedsData);
-            startNewRound(breedsData);
-        };
-        loadBreeds();
-    }, []);
-
-    // Auto-advance timer
-    useEffect(() => {
-        let timer;
-        if (countdown !== null && countdown > 0) {
-            timer = setTimeout(() => setCountdown(countdown - 1), 1000);
-        } else if (countdown === 0) {
-            startNewRound();
-        }
-        return () => clearTimeout(timer);
-    }, [countdown]);
-
-    const startNewRound = async (breedsData = breeds) => {
-        if (breedsData.length === 0) return;
-
-        setGameState('loading');
-        setSelectedOption(null);
-        setImageLoaded(false);
-        setCountdown(null);
-
-        // Pick correct breed
-        const randomIndex = Math.floor(Math.random() * breedsData.length);
-        const correctBreed = breedsData[randomIndex];
-
-        // Pick 2 wrong options
-        const wrongOptions = [];
-        while (wrongOptions.length < 2) {
-            const randomWrongIndex = Math.floor(Math.random() * breedsData.length);
-            const wrongBreed = breedsData[randomWrongIndex];
-            if (wrongBreed.id !== correctBreed.id && !wrongOptions.find(b => b.id === wrongBreed.id)) {
-                wrongOptions.push(wrongBreed);
-            }
-        }
-
-        // Shuffle options
-        const allOptions = [correctBreed, ...wrongOptions].sort(() => Math.random() - 0.5);
-        setOptions(allOptions);
-
-        // Fetch image
-        const image = await fetchRandomDogImage(correctBreed.id);
-        if (image) {
-            setCurrentDog({ ...correctBreed, imageUrl: image.url });
-            setGameState('playing');
-        } else {
-            // Retry if image fetch fails
-            startNewRound(breedsData);
-        }
-    };
-
-    const handleOptionClick = (breed) => {
-        if (gameState !== 'playing') return;
-
-        setSelectedOption(breed);
-
-        if (breed.id === currentDog.id) {
-            setScore(score + 1);
-            setGameState('won');
-        } else {
-            setGameState('lost');
-        }
-
-        // Start countdown
-        setCountdown(5);
-    };
-
-    const handleImageLoad = () => {
-        setImageLoaded(true);
-    };
 
     return (
         <section id="game" className="py-16 px-4 bg-white min-h-[600px] flex flex-col items-center justify-center relative">
