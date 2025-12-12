@@ -14,15 +14,31 @@ export const GameProvider = ({ children }) => {
     const [selectedOption, setSelectedOption] = useState(null);
     const [imageLoaded, setImageLoaded] = useState(false);
     const [countdown, setCountdown] = useState(null);
+    const [sessionState, setSessionState] = useState('waiting'); // waiting, playing, finished
+    const [timeLeft, setTimeLeft] = useState(60);
 
     useEffect(() => {
         const loadBreeds = async () => {
             const breedsData = await fetchBreeds();
             setBreeds(breedsData);
-            startNewRound(breedsData);
+            // Don't start round automatically on load, wait for user start
+            // startNewRound(breedsData);
         };
         loadBreeds();
     }, []);
+
+    // Game Timer
+    useEffect(() => {
+        let interval;
+        if (sessionState === 'playing' && timeLeft > 0) {
+            interval = setInterval(() => {
+                setTimeLeft((prev) => prev - 1);
+            }, 1000);
+        } else if (sessionState === 'playing' && timeLeft === 0) {
+            setSessionState('finished');
+        }
+        return () => clearInterval(interval);
+    }, [sessionState, timeLeft]);
 
     // Auto-advance timer
     useEffect(() => {
@@ -34,6 +50,19 @@ export const GameProvider = ({ children }) => {
         }
         return () => clearTimeout(timer);
     }, [countdown]);
+
+    const startGame = () => {
+        setScore(0);
+        setTimeLeft(60);
+        setSessionState('playing');
+        startNewRound();
+    };
+
+    const resetGame = () => {
+        setSessionState('waiting');
+        setTimeLeft(60);
+        setScore(0);
+    };
 
     const startNewRound = async (breedsData = breeds) => {
         if (breedsData.length === 0) return;
@@ -101,6 +130,10 @@ export const GameProvider = ({ children }) => {
         selectedOption,
         imageLoaded,
         countdown,
+        sessionState,
+        timeLeft,
+        startGame,
+        resetGame,
         startNewRound,
         handleOptionClick,
         handleImageLoad,

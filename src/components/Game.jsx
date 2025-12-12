@@ -12,6 +12,10 @@ const Game = () => {
         selectedOption,
         imageLoaded,
         countdown,
+        sessionState,
+        timeLeft,
+        startGame,
+        resetGame,
         startNewRound,
         handleOptionClick,
         handleImageLoad,
@@ -27,14 +31,96 @@ const Game = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    const [copied, setCopied] = useState(false);
+
+    const getFeedbackMessage = () => {
+        if (score < 5) return "Good start! Keep practicing to become a dog expert.";
+        if (score <= 10) return "Great job! You know your breeds well!";
+        return "Woof-tastic! You are a master of dog breeds!";
+    };
+
+    const handleShare = () => {
+        const text = `I scored ${score} in Guess The Woof! Can you beat me? ${window.location.href}`;
+        navigator.clipboard.writeText(text).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        });
+    };
+
+    if (sessionState === 'waiting') {
+        return (
+            <section id="game" className="py-20 px-4 bg-white min-h-[500px] flex flex-col items-center justify-center text-center">
+                <div className="max-w-2xl">
+                    <FaPaw className="text-indigo-600 text-6xl mx-auto mb-6 animate-bounce" />
+                    <h2 className="text-4xl font-extrabold text-gray-900 mb-6">Time Attack Mode</h2>
+                    <p className="text-xl text-gray-600 mb-8">
+                        You have <span className="font-bold text-indigo-600">60 seconds</span> to guess as many dog breeds as you can.
+                        Are you ready to prove your expertise?
+                    </p>
+                    <button
+                        onClick={startGame}
+                        className="bg-indigo-600 text-white font-bold py-4 px-12 rounded-full shadow-lg hover:bg-indigo-700 hover:scale-105 transition duration-300 text-xl"
+                    >
+                        Start Challenge
+                    </button>
+                </div>
+            </section>
+        );
+    }
+
+    if (sessionState === 'finished') {
+        return (
+            <section id="game" className="py-20 px-4 bg-white min-h-[600px] flex flex-col items-center justify-center text-center">
+                <Confetti width={windowSize.width} height={windowSize.height} recycle={false} numberOfPieces={500} />
+                <div className="max-w-xl w-full bg-gray-50 p-8 rounded-3xl shadow-xl border-4 border-indigo-100">
+                    <h2 className="text-4xl font-extrabold text-gray-800 mb-2">Time's Up!</h2>
+                    <p className="text-gray-500 mb-8">Let's see how you did...</p>
+
+                    <div className="bg-white p-6 rounded-2xl shadow-sm mb-8">
+                        <span className="block text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">Final Score</span>
+                        <span className="block text-6xl font-extrabold text-indigo-600">{score}</span>
+                    </div>
+
+                    <p className="text-xl font-bold text-gray-700 mb-8 px-4">
+                        {getFeedbackMessage()}
+                    </p>
+
+                    <div className="flex flex-col gap-4">
+                        <button
+                            onClick={handleShare}
+                            className="bg-green-500 text-white font-bold py-3 px-8 rounded-full shadow-md hover:bg-green-600 transition duration-300 flex items-center justify-center gap-2"
+                        >
+                            {copied ? 'Copied!' : 'Share Result'}
+                        </button>
+
+                        <button
+                            onClick={resetGame}
+                            className="bg-transparent border-2 border-indigo-600 text-indigo-600 font-bold py-3 px-8 rounded-full hover:bg-indigo-50 transition duration-300"
+                        >
+                            Play Again
+                        </button>
+                    </div>
+                </div>
+            </section>
+        );
+    }
+
     return (
         <section id="game" className="py-16 px-4 bg-white min-h-[600px] flex flex-col items-center justify-center relative">
             {gameState === 'won' && <Confetti width={windowSize.width} height={windowSize.height} recycle={false} numberOfPieces={500} />}
 
             <div className="max-w-4xl w-full text-center">
-                <div className="mb-8 flex justify-between items-center bg-gray-100 px-6 py-3 rounded-full max-w-xs mx-auto">
-                    <span className="text-gray-600 font-bold">Score</span>
-                    <span className="text-2xl font-extrabold text-indigo-600">{score}</span>
+                <div className="flex justify-between items-center mb-8 px-4">
+                    <div className="flex flex-col items-start">
+                        <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Score</span>
+                        <span className="text-3xl font-extrabold text-indigo-600">{score}</span>
+                    </div>
+                    <div className="flex flex-col items-end">
+                        <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Time</span>
+                        <span className={`text-3xl font-extrabold ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-gray-700'}`}>
+                            {timeLeft}s
+                        </span>
+                    </div>
                 </div>
 
                 {gameState === 'loading' ? (
