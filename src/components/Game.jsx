@@ -51,7 +51,7 @@ const Game = () => {
         return (
             <section id="game" className="py-20 px-4 bg-white min-h-[500px] flex flex-col items-center justify-center text-center">
                 <div className="max-w-2xl">
-                    <FaPaw className="text-indigo-600 text-6xl mx-auto mb-6 animate-bounce" />
+                    <FaPaw className="text-indigo-600 text-6xl mx-auto mb-6 animate-bounce" aria-hidden="true" />
                     <h2 className="text-4xl font-extrabold text-gray-900 mb-6">Time Attack Mode</h2>
                     <p className="text-xl text-gray-600 mb-8">
                         You have <span className="font-bold text-indigo-600">60 seconds</span> to guess as many dog breeds as you can.
@@ -117,7 +117,7 @@ const Game = () => {
                     </div>
                     <div className="flex flex-col items-end">
                         <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Time</span>
-                        <span className={`text-3xl font-extrabold ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-gray-700'}`}>
+                        <span role="timer" aria-label={`${timeLeft} seconds remaining`} className={`text-3xl font-extrabold ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-gray-700'}`}>
                             {timeLeft}s
                         </span>
                     </div>
@@ -125,14 +125,14 @@ const Game = () => {
 
                 {gameState === 'loading' ? (
                     <div className="flex justify-center items-center h-64">
-                        <FaPaw className="text-indigo-600 text-6xl animate-bounce" />
+                        <FaPaw className="text-indigo-600 text-6xl animate-bounce" aria-hidden="true" />
                     </div>
                 ) : (
                     <div className="flex flex-col items-center">
                         <div className="mb-8 relative group min-h-[16rem] md:min-h-[20rem] flex items-center justify-center">
                             {!imageLoaded && (
                                 <div className="absolute inset-0 flex items-center justify-center">
-                                    <FaPaw className="text-indigo-400 text-6xl animate-spin" />
+                                    <FaPaw className="text-indigo-400 text-6xl animate-spin" aria-hidden="true" />
                                 </div>
                             )}
                             <div className={`absolute -inset-1 bg-gradient-to-r from-pink-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 ${!imageLoaded ? 'hidden' : ''}`}></div>
@@ -174,7 +174,7 @@ const Game = () => {
                         )}
 
                         {gameState !== 'playing' && imageLoaded && (
-                            <div className="mt-10 animate-fade-in-up">
+                            <div className="mt-10 animate-fade-in-up" aria-live="polite">
                                 <p className={`text-xl font-bold mb-4 ${gameState === 'won' ? 'text-green-600' : 'text-red-600'}`}>
                                     {gameState === 'won' ? 'Correct! 🎉' : `Oops! It was a ${currentDog.name}.`}
                                 </p>

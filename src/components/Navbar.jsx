@@ -44,7 +44,12 @@ const Navbar = ({ onPlayClick, onLearnMoreClick, onAboutMeClick }) => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo Section */}
-                    <div className="flex-shrink-0 flex items-center cursor-pointer group" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                    {/* Logo Section */}
+                    <button
+                        className="flex-shrink-0 flex items-center cursor-pointer group focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1"
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                        aria-label="Scroll to top"
+                    >
                         <motion.div
                             whileHover={{
                                 rotate: [0, -20, 20, -10, 10, 0],
@@ -53,13 +58,14 @@ const Navbar = ({ onPlayClick, onLearnMoreClick, onAboutMeClick }) => {
                             }}
                             whileTap={{ scale: 0.8, rotate: -10 }}
                             className="text-indigo-600 text-3xl mr-2"
+                            aria-hidden="true"
                         >
                             <FaPaw />
                         </motion.div>
                         <span className="font-extrabold text-xl tracking-tight text-gray-900 group-hover:text-indigo-800 transition-colors">
                             Guess The <span className="text-indigo-600 group-hover:text-purple-600 transition-colors">Woof!</span>
                         </span>
-                    </div>
+                    </button>
 
                     {/* Links Section */}
                     <div className="hidden md:block">

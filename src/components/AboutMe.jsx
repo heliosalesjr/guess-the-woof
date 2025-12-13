@@ -16,7 +16,7 @@ const AboutMe = () => {
                                 className="relative w-64 h-64 rounded-full object-cover border-4 border-white shadow-xl"
                             />
                             <div className="absolute bottom-4 right-4 bg-white p-3 rounded-full shadow-lg text-indigo-600">
-                                <FaCode className="text-xl" />
+                                <FaCode className="text-xl" aria-hidden="true" />
                             </div>
                         </div>
                     </div>
@@ -24,11 +24,11 @@ const AboutMe = () => {
                     {/* Content Section */}
                     <div className="w-full md:w-2/3 text-center md:text-left">
                         <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center justify-center md:justify-start gap-3">
-                            Meet the Developer <FaSmile className="text-yellow-500" />
+                            Meet the Developer <FaSmile className="text-yellow-500" aria-hidden="true" />
                         </h2>
 
                         <div className="bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-2xl shadow-sm border border-indigo-100 relative">
-                            <FaHeart className="absolute top-6 right-6 text-pink-400 text-2xl opacity-20" />
+                            <FaHeart className="absolute top-6 right-6 text-pink-400 text-2xl opacity-20" aria-hidden="true" />
                             <p className="text-lg text-gray-700 leading-relaxed font-medium mb-4">
                                 "I built this project to practice engineering and show my parents and in-laws that what I do can also be fun!"
                             </p>
