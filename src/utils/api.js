@@ -29,3 +29,31 @@ export const fetchRandomDogImage = async (breedId) => {
         return null;
     }
 };
+
+export const fetchRandomDogWithBreed = async () => {
+    try {
+        // Step 1: Get all breeds
+        const breeds = await fetchBreeds();
+        if (!breeds || breeds.length === 0) return null;
+
+        // Retry logic to find a breed with an image
+        for (let i = 0; i < 5; i++) {
+            const randomBreed = breeds[Math.floor(Math.random() * breeds.length)];
+
+            // Step 2: Get image for this breed
+            const dogImage = await fetchRandomDogImage(randomBreed.id);
+
+            if (dogImage && dogImage.url) {
+                return {
+                    url: dogImage.url,
+                    name: randomBreed.name,
+                    // Return standardized format directly
+                };
+            }
+        }
+        return null;
+    } catch (error) {
+        console.error("Error fetching random dog with breed:", error);
+        return null;
+    }
+};
