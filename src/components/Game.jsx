@@ -49,7 +49,7 @@ const Game = () => {
 
     if (sessionState === 'waiting') {
         return (
-            <section id="game" className="py-20 px-4 bg-white min-h-[500px] flex flex-col items-center justify-center text-center">
+            <section id="game" className="py-20 px-4 bg-white min-h-[700px] flex flex-col items-center justify-center text-center">
                 <div className="max-w-2xl">
                     <FaPaw className="text-indigo-600 text-6xl mx-auto mb-6 animate-bounce" aria-hidden="true" />
                     <h2 className="text-4xl font-extrabold text-gray-900 mb-6">Time Attack Mode</h2>
@@ -70,7 +70,7 @@ const Game = () => {
 
     if (sessionState === 'finished') {
         return (
-            <section id="game" className="py-20 px-4 bg-white min-h-[600px] flex flex-col items-center justify-center text-center">
+            <section id="game" className="py-20 px-4 bg-white min-h-[700px] flex flex-col items-center justify-center text-center">
                 <Confetti width={windowSize.width} height={windowSize.height} recycle={false} numberOfPieces={500} />
                 <div className="max-w-xl w-full bg-gray-50 p-8 rounded-3xl shadow-xl border-4 border-indigo-100">
                     <h2 className="text-4xl font-extrabold text-gray-800 mb-2">Time's Up!</h2>
@@ -106,7 +106,7 @@ const Game = () => {
     }
 
     return (
-        <section id="game" className="py-16 px-4 bg-white min-h-[600px] flex flex-col items-center justify-center relative">
+        <section id="game" className="py-16 px-4 bg-white min-h-[700px] flex flex-col items-center justify-center relative">
             {gameState === 'won' && <Confetti width={windowSize.width} height={windowSize.height} recycle={false} numberOfPieces={500} />}
 
             <div className="max-w-4xl w-full text-center">
