@@ -60,8 +60,8 @@ const LearnMore = () => {
                         >
                             <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                            <div className="mb-6 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 w-20 h-20 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 border border-white/10">
-                                {card.icon}
+                            <div className="mb-6 flex items-center justify-center drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+                                {React.cloneElement(card.icon, { className: `${card.icon.props.className} text-4xl` })}
                             </div>
                             <h3 className="text-xl font-bold text-white mb-3 leading-tight">
                                 {card.title}
