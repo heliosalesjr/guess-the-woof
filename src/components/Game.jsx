@@ -71,7 +71,13 @@ const Game = () => {
     if (sessionState === 'finished') {
         return (
             <section id="game" className="py-20 px-4 bg-white min-h-[700px] flex flex-col items-center justify-center text-center">
-                <Confetti width={windowSize.width} height={windowSize.height} recycle={false} numberOfPieces={500} />
+                <Confetti
+                    width={windowSize.width}
+                    height={windowSize.height}
+                    recycle={false}
+                    numberOfPieces={500}
+                    style={{ position: 'fixed', top: 0, left: 0, zIndex: 50, pointerEvents: 'none' }}
+                />
                 <div className="max-w-xl w-full bg-gray-50 p-8 rounded-3xl shadow-xl border-4 border-indigo-100">
                     <h2 className="text-4xl font-extrabold text-gray-800 mb-2">Time's Up!</h2>
                     <p className="text-gray-500 mb-8">Let's see how you did...</p>
