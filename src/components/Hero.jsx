@@ -170,7 +170,7 @@ const Hero = ({ onPlayClick, onLearnMoreClick }) => {
                                                         <p className="text-indigo-600 font-bold text-lg md:text-xl group-hover:hidden">
                                                             Do you know my breed?
                                                         </p>
-                                                        <p className="hidden group-hover:block text-indigo-600 font-bold text-lg md:text-xl animate-pulse">
+                                                        <p className="hidden group-hover:block text-indigo-600 font-bold text-lg md:text-xl">
                                                             Click to find out!
                                                         </p>
                                                     </div>
