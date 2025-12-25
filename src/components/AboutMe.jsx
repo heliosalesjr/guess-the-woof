@@ -15,8 +15,13 @@ const AboutMe = () => {
                                 alt="Developer"
                                 className="relative w-64 h-64 rounded-full object-cover border-4 border-white shadow-xl"
                             />
-                            <div className="absolute bottom-4 right-4 bg-white p-3 rounded-full shadow-lg text-indigo-600">
+                            <div className="absolute bottom-4 right-4 bg-white p-3 rounded-full shadow-lg text-indigo-600 z-10">
                                 <FaCode className="text-xl" aria-hidden="true" />
+                            </div>
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
+                                <p className="text-white text-center text-sm font-semibold px-6">
+                                    This is me and my dog, her name is Pamonha
+                                </p>
                             </div>
                         </div>
                     </div>
