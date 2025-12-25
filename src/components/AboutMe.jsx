@@ -11,7 +11,7 @@ const AboutMe = () => {
                         <div className="relative group">
                             <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
                             <img
-                                src="https://ui-avatars.com/api/?name=Dev+Eloper&background=6366f1&color=fff&size=256"
+                                src="/me.png"
                                 alt="Developer"
                                 className="relative w-64 h-64 rounded-full object-cover border-4 border-white shadow-xl"
                             />
