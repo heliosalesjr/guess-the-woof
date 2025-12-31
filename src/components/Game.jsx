@@ -40,7 +40,7 @@ const Game = () => {
     };
 
     const handleShare = () => {
-        const text = `I scored ${score} in Guess The Woof! Can you beat me? ${window.location.href}`;
+        const text = `www.guessthewoof.com`;
         navigator.clipboard.writeText(text).then(() => {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
@@ -98,7 +98,7 @@ const Game = () => {
                             onClick={handleShare}
                             className="bg-green-500 text-white font-bold py-3 px-8 rounded-full shadow-md hover:bg-green-600 transition duration-300 flex items-center justify-center gap-2"
                         >
-                            {copied ? 'Copied!' : 'Share Result'}
+                            {copied ? 'Copied!' : 'Share with your friends'}
                         </button>
 
                         <button
@@ -120,11 +120,11 @@ const Game = () => {
 
             <div className="max-w-4xl w-full text-center relative z-10">
                 <div className="flex justify-between items-center mb-8 px-4">
-                    <div className="flex flex-col items-start">
+                    <div className="flex flex-col items-center">
                         <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Score</span>
                         <span className="text-3xl font-extrabold text-indigo-600">{score}</span>
                     </div>
-                    <div className="flex flex-col items-end">
+                    <div className="flex flex-col items-center">
                         <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Time</span>
                         <span role="timer" aria-label={`${timeLeft} seconds remaining`} className={`text-3xl font-extrabold ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-gray-700'}`}>
                             {timeLeft}s
