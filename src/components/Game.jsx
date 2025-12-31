@@ -49,8 +49,9 @@ const Game = () => {
 
     if (sessionState === 'waiting') {
         return (
-            <section id="game" className="py-20 px-4 bg-white min-h-[700px] flex flex-col items-center justify-center text-center">
-                <div className="max-w-2xl">
+            <section id="game" className="py-20 px-4 bg-white min-h-[700px] flex flex-col items-center justify-center text-center relative overflow-hidden">
+                <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "url('/bone-pattern.png')", backgroundSize: "100px" }}></div>
+                <div className="max-w-2xl relative z-10">
                     <FaPaw className="text-indigo-600 text-6xl mx-auto mb-6 animate-bounce" aria-hidden="true" />
                     <h2 className="text-4xl font-extrabold text-gray-900 mb-6">Time Attack Mode</h2>
                     <p className="text-xl text-gray-600 mb-8">
@@ -70,7 +71,8 @@ const Game = () => {
 
     if (sessionState === 'finished') {
         return (
-            <section id="game" className="py-20 px-4 bg-white min-h-[700px] flex flex-col items-center justify-center text-center">
+            <section id="game" className="py-20 px-4 bg-white min-h-[700px] flex flex-col items-center justify-center text-center relative overflow-hidden">
+                <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "url('/bone-pattern.png')", backgroundSize: "100px" }}></div>
                 <Confetti
                     width={windowSize.width}
                     height={windowSize.height}
@@ -78,7 +80,7 @@ const Game = () => {
                     numberOfPieces={500}
                     style={{ position: 'fixed', top: 0, left: 0, zIndex: 50, pointerEvents: 'none' }}
                 />
-                <div className="max-w-xl w-full bg-gray-50 p-8 rounded-3xl shadow-xl border-4 border-indigo-100">
+                <div className="max-w-xl w-full bg-gray-50 p-8 rounded-3xl shadow-xl border-4 border-indigo-100 relative z-10">
                     <h2 className="text-4xl font-extrabold text-gray-800 mb-2">Time's Up!</h2>
                     <p className="text-gray-500 mb-8">Let's see how you did...</p>
 
@@ -112,10 +114,11 @@ const Game = () => {
     }
 
     return (
-        <section id="game" className="py-16 px-4 bg-white min-h-[700px] flex flex-col items-center justify-center relative">
+        <section id="game" className="py-16 px-4 bg-white min-h-[700px] flex flex-col items-center justify-center relative overflow-hidden">
+            <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "url('/bone-pattern.png')", backgroundSize: "100px" }}></div>
             {gameState === 'won' && <Confetti width={windowSize.width} height={windowSize.height} recycle={false} numberOfPieces={500} />}
 
-            <div className="max-w-4xl w-full text-center">
+            <div className="max-w-4xl w-full text-center relative z-10">
                 <div className="flex justify-between items-center mb-8 px-4">
                     <div className="flex flex-col items-start">
                         <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Score</span>
